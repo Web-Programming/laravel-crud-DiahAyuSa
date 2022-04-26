@@ -31,4 +31,5 @@ class ProdiController extends Controller
     function detail($id = null){
         echo $id;
     }
+
 }

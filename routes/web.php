@@ -52,3 +52,4 @@ Route::get("/mahasiswa/detail/{id}", [MahasiswaController::class, "detail"])->na
 
 
 Route::get("/prodi/create", [ProdiController::class, "create"])->name("prodi.create");
+Route::post("prodi/store", [PordiController::class, "store"]);

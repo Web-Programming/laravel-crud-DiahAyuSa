@@ -36,4 +36,9 @@ class ProdiController extends Controller
     {
         return view("prodi.create");
     }
+
+    public function store(Request $request)
+    {
+        dump($request);
+    }
 }

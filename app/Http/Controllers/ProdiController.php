@@ -41,7 +41,13 @@ class ProdiController extends Controller
     {
        // dump($request);
        //echo $request->nama;
-       $request->input('Diah');
-       request('Diah');
+      // $request->input('Diah');
+       //request('Diah');
+
+       $validateData = $request->validate([
+           'nama' => 'required|min:5|max:20',
+       ]);
+       dump($validateData);
+       echo $validateData['nama'];
     }
 }

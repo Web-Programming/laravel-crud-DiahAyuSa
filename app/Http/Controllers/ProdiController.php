@@ -25,7 +25,7 @@ class ProdiController extends Controller
 
         /*$prodi = DB::select("SELECT prodi.*, fakultas.nama as namaf FROM prodi INNER JOIN fakultas ON prodi.fakultas_id = fakultas.id");*/
         
-        /*return view("prodi.index", compact('kampus', 'prodi'));
+      /*  return view("prodi.index", compact('kampus', 'prodi'));
     } */
 
     function detail($id = null){
@@ -39,6 +39,9 @@ class ProdiController extends Controller
 
     public function store(Request $request)
     {
-        dump($request);
+       // dump($request);
+       //echo $request->nama;
+       $request->input('Diah');
+       request('Diah');
     }
 }

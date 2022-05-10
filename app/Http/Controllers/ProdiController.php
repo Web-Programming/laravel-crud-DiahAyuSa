@@ -9,56 +9,63 @@ use Illuminate\Support\Facades\DB;
 class ProdiController extends Controller
 {
 
-    public function index()
-    {
+    function index(){
+    
+        $kampus = "Universitas Multi Data Palembang";
         $prodi = Prodi::all();
         return view('prodi.index')->with('prodi', $prodi);
     }
-        /*$data = [
-            'prodi' => ['Manajemen Informatika', 'Sistem Informasi', 'Informatika']
-        ];
-    
-        //atau menggunakan compact
-        $prodi = ['Manajemen Informatika', 'Sistem Informasi', 'Informatika'];
-        $kampus = "Universitas Multi Data Palembang";
-    
-        return view("prodi.index", compact('prodi', 'kampus'));*/
-
-     /*   $kampus = "Universitas Multi Data Palembang";
-
-        /*$prodi = DB::select("SELECT prodi.*, fakultas.nama as namaf FROM prodi INNER JOIN fakultas ON prodi.fakultas_id = fakultas.id");*/
-        
-      /*  return view("prodi.index", compact('kampus', 'prodi'));
-    } */
 
     function detail($id = null){
         echo $id;
     }
 
-    public function create()
-    {
+    function create(){
         return view("prodi.create");
     }
 
     public function store(Request $request)
     {
-       // dump($request);
-       //echo $request->nama;
-      // $request->input('Diah');
-       //request('Diah');
+        $validateData = $request->validate([
+            'nama' => 'required|min:5|max:20',
+        ]);
+       
+        $prodi = new Prodi(); //buat object prodi
+        $prodi->nama = $validateData['nama']; //simpan nilai inout ($validateData['nama]) ke dalam property nama prodi ($prodi->nama)
+        $prodi->institusi_id = 0;
+        $prodi->fakultas_id = 1;
+        $prodi->save(); //simpan ke dalam tabel prodis
 
-       $validateData = $request->validate([
-           'nama' => 'required|min:5|max:20',
-       ]);
-      // dump($validateData);
-      // echo $validateData['nama'];
-
-      $prodi = new Prodi();
-      $prodi->nama = $validateData['nama'];
-      $prodi->save();
-
-      $request->session()->flash('info', "Data Prodi $prodi->nama berhasil disimpan ke database");
-      return redirect()->route('prodi.create');
+        //return "Data prodi $prodi->nama berhasil disimpan ke database"; // tampilkan pesan berhasil
+        $request->session()->flash('info', "Data prodi $prodi->nama berhasil disimpan ke database");
+        return redirect()->route('prodi.create');
     }
 
+    public function show(Prodi $prodi)
+    {
+        return view('prodi.show', ['prodi' => $prodi]);
+    }
+
+    public function edit(Prodi $prodi)
+    {
+        return view('prodi.edit', ['prodi' => $prodi]);
+    }
+
+    public function update(Request $request, Prodi $prodi)
+    {
+     
+        $validateData = $request->validate([
+            'nama' => 'required|min:5|max:20',
+        ]);
+
+        Prodi::where('id', $prodi->id)->update($validateData);
+        $request->session()->flash('info', "Data prodi $prodi->nama berhasil diubah");
+        return redirect()->route('prodi.index');
+    }
+
+    public function destroy(Prodi $prodi)
+    {
+        $prodi->delete();
+        return redirect()->route('prodi.index')->with("info", "Prodi $prodi->nama berhasil dihapus.");
+    }
 }

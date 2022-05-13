@@ -19,8 +19,8 @@
                         <input type="text" name="nama" id="nama" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="foto">Gambar/Logo</label>
-                        <input type="file" name="foto" class="form-control">
+                    <label for="foto">Gambar/Logo</label>
+                    <input type="file" name="foto" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">Simpan</button>
                 </form>

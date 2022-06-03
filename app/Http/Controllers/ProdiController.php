@@ -44,10 +44,13 @@ class ProdiController extends Controller
         $prodi->foto= $nama_file;
         $prodi->save(); //simpan ke dalam tabel prodis
 
-        //return "Data prodi $prodi->nama berhasil disimpan ke database"; // tampilkan pesan berhasil
-        $request->session()->flash('info', "Data prodi $prodi->nama berhasil disimpan ke database");
-        return redirect()->route('prodi.create');
+       // return ['status' => true, 'message' => 'Data berhasil disimpan'];
     }
+
+        //return "Data prodi $prodi->nama berhasil disimpan ke database"; // tampilkan pesan berhasil
+        //$request->session()->flash('info', "Data prodi $prodi->nama berhasil disimpan ke database");
+       // return redirect()->route('prodi.create');
+    //}
 
     public function show(Prodi $prodi)
     {
